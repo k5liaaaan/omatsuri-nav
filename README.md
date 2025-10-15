@@ -2,9 +2,10 @@
 
 ## 現在の状況（MVP）
 
-- ページ構成
-  - `/` ホーム（一覧への導線）
-  - `/festivals` お祭り一覧（公開APIから取得、ページネーション）
+- ページ構成（3階層ナビゲーション）
+  - `/` 都道府県一覧（TOP）
+  - `/prefectures/[id]/municipalities` 市区町村一覧
+  - `/prefectures/[id]/municipalities/[municipalityId]/festivals` 地域別お祭り一覧
   - `/festivals/[id]` お祭り詳細
 
 - データ取得（バックエンド連携）
