@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getPublicFestivals } from '@/lib/api';
+import BackButton from '@/components/BackButton';
 
 export const revalidate = 60;
 
@@ -13,6 +14,14 @@ export default async function FestivalListPage({ searchParams }: { searchParams:
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-8 space-y-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <BackButton />
+        <nav aria-label="パンくずリスト" className="flex items-center text-sm text-gray-600">
+          <Link href="/" className="text-blue-600 hover:underline">ホーム</Link>
+          <span className="mx-2 text-gray-400">/</span>
+          <span className="text-gray-500">お祭り一覧</span>
+        </nav>
+      </div>
       <h1 className="text-2xl font-semibold">お祭り一覧</h1>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {festivals.map((f) => (

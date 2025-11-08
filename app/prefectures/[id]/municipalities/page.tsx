@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getMunicipalitiesByPrefecture, getPrefectures } from "@/lib/api";
+import BackButton from "@/components/BackButton";
 
 export const revalidate = 60;
 
@@ -20,10 +21,15 @@ export default async function MunicipalityListPage({ params }: { params: Params 
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-10 space-y-6">
-      <nav className="text-sm text-gray-500">
-        <Link href="/" className="hover:underline">トップ</Link> &gt; {prefecture.name}
-      </nav>
-      
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <BackButton />
+        <nav aria-label="パンくずリスト" className="flex items-center text-sm text-gray-600">
+          <Link href="/" className="text-blue-600 hover:underline">トップ</Link>
+          <span className="mx-2 text-gray-400">/</span>
+          <span className="text-gray-500">{prefecture.name}</span>
+        </nav>
+      </div>
+
       <h1 className="text-2xl font-semibold">{prefecture.name}の市区町村</h1>
       
       <section>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPublicFestivals, getMunicipalitiesByPrefecture, getPrefectures } from "@/lib/api";
+import BackButton from "@/components/BackButton";
 
 export const revalidate = 60;
 
@@ -32,12 +33,17 @@ export default async function FestivalListPage({ params, searchParams }: {
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-10 space-y-6">
-      <nav className="text-sm text-gray-500">
-        <Link href="/" className="hover:underline">トップ</Link> &gt; 
-        <Link href={`/prefectures/${prefectureId}/municipalities`} className="hover:underline"> {prefecture.name}</Link> &gt; 
-        {municipality.name}
-      </nav>
-      
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <BackButton fallbackHref={`/prefectures/${prefectureId}/municipalities`} />
+        <nav aria-label="パンくずリスト" className="flex items-center text-sm text-gray-600">
+          <Link href="/" className="text-blue-600 hover:underline">トップ</Link>
+          <span className="mx-2 text-gray-400">/</span>
+          <Link href={`/prefectures/${prefectureId}/municipalities`} className="text-blue-600 hover:underline">{prefecture.name}</Link>
+          <span className="mx-2 text-gray-400">/</span>
+          <span className="text-gray-500 line-clamp-1" title={`${prefecture.name}${municipality.name}`}>{municipality.name}</span>
+        </nav>
+      </div>
+
       <h1 className="text-2xl font-semibold">{municipality.name}のお祭り</h1>
       
       {festivals.length === 0 ? (
@@ -80,3 +86,7 @@ export default async function FestivalListPage({ params, searchParams }: {
     </main>
   );
 }
+
+
+
+
