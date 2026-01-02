@@ -4,11 +4,12 @@ import BackButton from '@/components/BackButton';
 
 export const revalidate = 60;
 
-export default async function FestivalListPage({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }) {
-  const page = Number(searchParams?.page ?? 1);
-  const prefectureId = searchParams?.prefectureId ? Number(searchParams.prefectureId) : undefined;
-  const municipalityId = searchParams?.municipalityId ? Number(searchParams.municipalityId) : undefined;
-  const month = typeof searchParams?.month === 'string' ? searchParams.month : undefined;
+export default async function FestivalListPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const resolvedSearchParams = await searchParams;
+  const page = Number(resolvedSearchParams?.page ?? 1);
+  const prefectureId = resolvedSearchParams?.prefectureId ? Number(resolvedSearchParams.prefectureId) : undefined;
+  const municipalityId = resolvedSearchParams?.municipalityId ? Number(resolvedSearchParams.municipalityId) : undefined;
+  const month = typeof resolvedSearchParams?.month === 'string' ? resolvedSearchParams.month : undefined;
 
   const { festivals, pagination } = await getPublicFestivals({ page, prefectureId, municipalityId, month, orderBy: 'nearest', limit: 12 });
 
