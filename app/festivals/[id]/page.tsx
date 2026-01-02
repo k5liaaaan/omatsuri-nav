@@ -6,8 +6,9 @@ export const revalidate = 60;
 
 type Params = { id: string };
 
-export default async function FestivalDetailPage({ params }: { params: Params }) {
-  const id = Number(params.id);
+export default async function FestivalDetailPage({ params }: { params: Promise<Params> }) {
+  const { id: idStr } = await params;
+  const id = Number(idStr);
   const festival = await getPublicFestivalById(id);
 
   return (

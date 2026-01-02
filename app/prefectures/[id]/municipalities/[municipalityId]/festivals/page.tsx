@@ -7,12 +7,14 @@ export const revalidate = 60;
 type Params = { id: string; municipalityId: string };
 
 export default async function FestivalListPage({ params, searchParams }: { 
-  params: Params; 
-  searchParams: Record<string, string | string[] | undefined>;
+  params: Promise<Params>; 
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const prefectureId = Number(params.id);
-  const municipalityId = Number(params.municipalityId);
-  const page = Number(searchParams?.page ?? 1);
+  const { id: idStr, municipalityId: municipalityIdStr } = await params;
+  const resolvedSearchParams = await searchParams;
+  const prefectureId = Number(idStr);
+  const municipalityId = Number(municipalityIdStr);
+  const page = Number(resolvedSearchParams?.page ?? 1);
 
   const [
     { festivals, pagination },

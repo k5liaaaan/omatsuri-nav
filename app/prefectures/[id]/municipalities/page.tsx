@@ -6,8 +6,9 @@ export const revalidate = 60;
 
 type Params = { id: string };
 
-export default async function MunicipalityListPage({ params }: { params: Params }) {
-  const prefectureId = Number(params.id);
+export default async function MunicipalityListPage({ params }: { params: Promise<Params> }) {
+  const { id: idStr } = await params;
+  const prefectureId = Number(idStr);
   
   const [{ data: municipalities }, { data: prefectures }] = await Promise.all([
     getMunicipalitiesByPrefecture(prefectureId),
