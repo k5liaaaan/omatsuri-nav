@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build --no-turbopack",
-    "build:no-turbo": "NODE_OPTIONS='--max-old-space-size=4096' next build --no-turbopack",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
+    "build:low-mem": "NODE_OPTIONS='--max-old-space-size=2048' next build",
     "start": "next start",
     "lint": "eslint"
   },

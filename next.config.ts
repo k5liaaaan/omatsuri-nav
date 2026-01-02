@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Turbopackを無効化（EC2環境でのBus error回避）
-  experimental: {
-    turbo: false,
-  },
+  // EC2環境でのビルド最適化
+  output: 'standalone',
 };
 
 export default nextConfig;
